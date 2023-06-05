@@ -23,6 +23,16 @@ public partial class User
 
     public DateTime? ModifedOn { get; set; }
 
+    public DateOnly DateOfBirth { get; set; }
+
+    public int? ManagerId { get; set; }
+
+    public Guid Uid { get; set; }
+
+    public virtual ICollection<User> InverseManager { get; set; } = new List<User>();
+
+    public virtual User? Manager { get; set; }
+
     public virtual ICollection<Praise> PraisePraizers { get; set; } = new List<Praise>();
 
     public virtual ICollection<Praise> PraiseUserPraiseds { get; set; } = new List<Praise>();

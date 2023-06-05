@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using Microsoft.EntityFrameworkCore;
+using praizer_api.Database.Models;
 
-namespace praizer_api.Database.Models;
+namespace praizer_api.Database;
 
 public partial class DefaultdbContext : DbContext
 {
@@ -14,9 +14,7 @@ public partial class DefaultdbContext : DbContext
     public DefaultdbContext(DbContextOptions<DefaultdbContext> options)
         : base(options)
     {
-        
     }
-
 
     public virtual DbSet<Praise> Praises { get; set; }
 
@@ -28,6 +26,7 @@ public partial class DefaultdbContext : DbContext
         var _configurations = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
         optionsBuilder.UseNpgsql(_configurations.GetRequiredSection("ConnectionStrings")["DefaultConnection"]);
     }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Praise>(entity =>
@@ -59,15 +58,21 @@ public partial class DefaultdbContext : DbContext
 
             entity.ToTable("users");
 
+            entity.HasIndex(e => e.Uid, "users_uid_key").IsUnique();
+
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreateOn)
                 .HasDefaultValueSql("now()")
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("create_on");
+            entity.Property(e => e.DateOfBirth)
+                .HasDefaultValueSql("'2023-01-01'::date")
+                .HasColumnName("date_of_birth");
             entity.Property(e => e.DateOfJoining).HasColumnName("date_of_joining");
             entity.Property(e => e.Email).HasColumnName("email");
             entity.Property(e => e.FirstName).HasColumnName("first_name");
             entity.Property(e => e.LastName).HasColumnName("last_name");
+            entity.Property(e => e.ManagerId).HasColumnName("manager_id");
             entity.Property(e => e.ModifedOn)
                 .HasDefaultValueSql("now()")
                 .HasColumnType("timestamp without time zone")
@@ -76,6 +81,12 @@ public partial class DefaultdbContext : DbContext
             entity.Property(e => e.PointToAward)
                 .HasDefaultValueSql("100")
                 .HasColumnName("point_to_award");
+            entity.Property(e => e.Uid).HasColumnName("uid");
+
+            entity.HasOne(d => d.Manager).WithMany(p => p.InverseManager)
+                .HasForeignKey(d => d.ManagerId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("fk_manager_id");
         });
 
         OnModelCreatingPartial(modelBuilder);

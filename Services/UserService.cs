@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using praizer_api.Database.Models;
 using praizer_api.Responses;
 
 namespace praizer_api.Services
