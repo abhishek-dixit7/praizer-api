@@ -25,7 +25,7 @@ namespace praizer_api.Services
             var token = new JwtSecurityToken(
                 issuer: jwtSettings["Issuer"],
                 audience: jwtSettings["Audience"],             
-                expires: DateTime.UtcNow.AddDays(7),
+                expires: DateTime.UtcNow.AddDays(1),
                 signingCredentials: signingCredentials
             );
 
