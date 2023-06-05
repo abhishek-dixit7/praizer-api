@@ -81,7 +81,9 @@ public partial class DefaultdbContext : DbContext
             entity.Property(e => e.PointToAward)
                 .HasDefaultValueSql("100")
                 .HasColumnName("point_to_award");
-            entity.Property(e => e.Uid).HasColumnName("uid");
+            entity.Property(e => e.Uid)
+                .HasColumnType("character varying")
+                .HasColumnName("uid");
 
             entity.HasOne(d => d.Manager).WithMany(p => p.InverseManager)
                 .HasForeignKey(d => d.ManagerId)

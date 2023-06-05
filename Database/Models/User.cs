@@ -27,7 +27,7 @@ public partial class User
 
     public int? ManagerId { get; set; }
 
-    public Guid Uid { get; set; }
+    public string Uid { get; set; } = null!;
 
     public virtual ICollection<User> InverseManager { get; set; } = new List<User>();
 

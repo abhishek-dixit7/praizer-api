@@ -7,6 +7,8 @@ public class AuthService
     public async Task<Boolean> AddUpdateUser()
     {
         await using var dbContext = new DefaultdbContext();
+
+        return false;
         
     }
 }
