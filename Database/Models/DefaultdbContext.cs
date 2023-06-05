@@ -7,15 +7,14 @@ namespace praizer_api.Database.Models;
 
 public partial class DefaultdbContext : DbContext
 {
-    private readonly IConfiguration configuration;
     public DefaultdbContext()
     {
     }
 
-    public DefaultdbContext(DbContextOptions<DefaultdbContext> options, IConfiguration _configurations)
+    public DefaultdbContext(DbContextOptions<DefaultdbContext> options)
         : base(options)
     {
-        configuration = _configurations;
+        
     }
 
 
@@ -24,9 +23,11 @@ public partial class DefaultdbContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
-
+        var _configurations = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+        optionsBuilder.UseNpgsql(_configurations.GetRequiredSection("ConnectionStrings")["DefaultConnection"]);
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Praise>(entity =>
