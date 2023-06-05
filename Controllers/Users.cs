@@ -6,7 +6,7 @@ using praizer_api.Services;
 
 namespace praizer_api.Controllers
 {
-    [AllowAnonymous]
+    [Authorize]
     [ApiController]
     public class Users : ControllerBase
     {

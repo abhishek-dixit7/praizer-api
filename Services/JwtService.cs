@@ -12,15 +12,19 @@ namespace praizer_api.Services
         public JwtService(string secretKey)
         {
             this.secretKey = secretKey;
+  
         }
 
         public string GenerateToken(string userId, string username)
         {
             var symmetricKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
             var signingCredentials = new SigningCredentials(symmetricKey, SecurityAlgorithms.HmacSha256);
+
+            var _configurations = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+            var jwtSettings = _configurations.GetSection("JwtSettings");
             var token = new JwtSecurityToken(
-                issuer: "your_issuer",
-                audience: "your_audience",             
+                issuer: jwtSettings["Issuer"],
+                audience: jwtSettings["Audience"],             
                 expires: DateTime.UtcNow.AddDays(7),
                 signingCredentials: signingCredentials
             );
