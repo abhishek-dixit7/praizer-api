@@ -8,9 +8,10 @@ namespace praizer_api.Controllers
 {
     [Authorize]
     [ApiController]
-    public class Users : ControllerBase
+    [Route("api/[controller]")]
+    public class UsersController : ControllerBase
     {
-        [HttpGet("api/[controller]/getUserDetails")]
+        [HttpGet("getUserDetails")]
 
         public async Task<List<UserResponse>> GetUserDeatils()
         {

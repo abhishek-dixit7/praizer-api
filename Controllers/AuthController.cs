@@ -1,22 +1,22 @@
 ﻿using FirebaseAdmin;
 using FirebaseAdmin.Auth;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using praizer_api.Objects;
 using praizer_api.Services;
 
 namespace praizer_api.Controllers
 {
     [ApiController]
     [AllowAnonymous]
-    [Route("api/auth")]
+    [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly FirebaseService firebaseService;
+        private readonly FirebaseService _firebaseService;
 
         public AuthController(FirebaseService firebaseService)
         {
-            this.firebaseService = firebaseService;
+            this._firebaseService = firebaseService;
         }
 
         [HttpPost("firebase-login")]
@@ -33,10 +33,12 @@ namespace praizer_api.Controllers
                 var uid = decodedToken.Uid;
 
                 // Get the user record from Firebase
-                var userRecord = await firebaseService.GetUserAsync(uid);
+                var userRecord = await _firebaseService.GetUserAsync(uid);
+                
+                // Store user details in DB if not already exists
 
                 // Generate a JWT token
-                var token = await firebaseService.GenerateTokenAsync(userRecord.Uid, userRecord.Email);
+                var token = await _firebaseService.GenerateTokenAsync(userRecord.Uid, userRecord.Email);
 
                 // Return the token to the client
                 return Ok(new { Token = token });
@@ -49,10 +51,8 @@ namespace praizer_api.Controllers
         }
     }
 
-    public class FirebaseTokenRequest
-    {
-        public string IdToken { get; set; }
-    }
+    
+    
 
 
 }
