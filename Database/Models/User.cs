@@ -29,6 +29,8 @@ public partial class User
 
     public string Uid { get; set; } = null!;
 
+    public string? PhotoUrl { get; set; }
+
     public virtual ICollection<User> InverseManager { get; set; } = new List<User>();
 
     public virtual User? Manager { get; set; }

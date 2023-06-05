@@ -77,6 +77,9 @@ public partial class DefaultdbContext : DbContext
                 .HasDefaultValueSql("now()")
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("modifed_on");
+            entity.Property(e => e.PhotoUrl)
+                .HasColumnType("character varying")
+                .HasColumnName("photo_url");
             entity.Property(e => e.PointBalance).HasColumnName("point_balance");
             entity.Property(e => e.PointToAward)
                 .HasDefaultValueSql("100")
