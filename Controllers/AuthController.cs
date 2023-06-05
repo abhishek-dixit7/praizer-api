@@ -36,6 +36,7 @@ namespace praizer_api.Controllers
                 var userRecord = await _firebaseService.GetUserAsync(uid);
                 
                 // Store user details in DB if not already exists
+                await AuthService.AddUpdateUser(userRecord);
 
                 // Generate a JWT token
                 var token = await _firebaseService.GenerateTokenAsync(userRecord.Uid, userRecord.Email);
