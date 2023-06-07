@@ -27,6 +27,6 @@ public static class AuthService
         
         dbContext.Users.Add(user);
         var result = await dbContext.SaveChangesAsync();
-        return true;
+        return result == 1 ? true : false;
     }
 }

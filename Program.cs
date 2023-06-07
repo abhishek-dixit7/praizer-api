@@ -51,7 +51,7 @@ builder.Services.AddSwaggerGen(c =>
 }); 
 
 // Configure Firebase Admin SDK
-var firebaseCredentialPath = "C:\\Users\\abhis\\source\\repos\\praizer-api\\praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json";
+var firebaseCredentialPath = builder.Configuration.GetSection("FirebaseConfigFile").Value;
 var firebaseApp = FirebaseApp.Create(new AppOptions
 {
     Credential = GoogleCredential.FromFile(firebaseCredentialPath)
