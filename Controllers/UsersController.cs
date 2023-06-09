@@ -13,9 +13,16 @@ namespace praizer_api.Controllers
     {
         [HttpGet("getUserDetails")]
 
-        public async Task<List<UserResponse>> GetUserDeatils()
+        public async Task<List<User>> GetUserDeatils()
         {
             return await UserService.GetUserDetails();
+        }
+
+        [HttpGet("getUserDetailsByUid")]
+
+        public async Task<User> GetUserDeatilsByUid(string uid)
+        {
+            return await UserService.GetUserDetailsByUid(uid);
         }
     }
 }
