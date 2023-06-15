@@ -16,7 +16,14 @@ namespace praizer_api.Services
         public static async Task<User> GetUserDetailsByUid(string uid)
         {
             await using var dbContext = new DefaultdbContext();
-            return dbContext.Users.Where(x => x.Uid.Equals(uid)).FirstOrDefault();
+            return dbContext.Users.FirstOrDefault(x => x.Uid.Equals(uid))!;
+        }
+
+        public static async Task<List<User>> GetUserDeatilsByName(string name)
+        {
+            await using var dbContext = new DefaultdbContext();
+            var users =   dbContext.Users.Where(x => (x.FirstName + " " + x.LastName).ToLower().Contains(name.ToLower())).ToList();
+            return users;
         }
     }
 }

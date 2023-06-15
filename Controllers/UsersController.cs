@@ -13,16 +13,51 @@ namespace praizer_api.Controllers
     {
         [HttpGet("getUserDetails")]
 
-        public async Task<List<User>> GetUserDeatils()
+        public async Task<IActionResult> GetUserDeatils()
         {
-            return await UserService.GetUserDetails();
+            try
+            {
+                var result = await UserService.GetUserDetails();
+                return Ok(result);
+            }
+            catch(Exception e)
+            {
+                System.Console.WriteLine(e);
+                return NotFound(e);
+            }
         }
 
         [HttpGet("getUserDetailsByUid")]
 
-        public async Task<User> GetUserDeatilsByUid(string uid)
+        public async Task<IActionResult> GetUserDeatilsByUid(string uid)
         {
-            return await UserService.GetUserDetailsByUid(uid);
+            try
+            {
+                var result = await UserService.GetUserDetailsByUid(uid);
+                return Ok(result);
+            }
+            catch(Exception e)
+            {
+                System.Console.WriteLine(e);
+                return NotFound(e);
+            }
+
+        }
+        
+        [HttpGet("getUserDetailsByName")]
+
+        public async Task<IActionResult> GetUserDeatilsByName(string name)
+        {
+            try
+            {
+                var result = await UserService.GetUserDeatilsByName(name);
+                return Ok(result);
+            }
+            catch(Exception e)
+            {
+                System.Console.WriteLine(e);
+                return NotFound(e);
+            }
         }
     }
 }
