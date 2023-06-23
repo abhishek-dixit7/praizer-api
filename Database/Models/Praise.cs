@@ -13,6 +13,12 @@ public partial class Praise
 
     public DateTime? CreateOn { get; set; }
 
+    public string PraizeText { get; set; } = null!;
+
+    public int? RewardPoints { get; set; }
+
+    public string? RecognitionType { get; set; }
+
     public virtual User? Praizer { get; set; }
 
     public virtual User? UserPraised { get; set; }

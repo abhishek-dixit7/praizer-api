@@ -1,4 +1,4 @@
-﻿namespace praizer_api.Responses
+﻿namespace praizer_api.Contracts.Responses
 {
     public class UserResponse
     {

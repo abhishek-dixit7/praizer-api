@@ -40,7 +40,17 @@ public partial class DefaultdbContext : DbContext
                 .HasDefaultValueSql("now()")
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("create_on");
+            entity.Property(e => e.PraizeText)
+                .HasMaxLength(250)
+                .HasColumnName("praize_text");
             entity.Property(e => e.PraizerId).HasColumnName("praizer_id");
+            entity.Property(e => e.RecognitionType)
+                .HasMaxLength(15)
+                .HasDefaultValueSql("'Passion'::text")
+                .HasColumnName("recognition_type");
+            entity.Property(e => e.RewardPoints)
+                .HasDefaultValueSql("0")
+                .HasColumnName("reward_points");
             entity.Property(e => e.UserPraisedId).HasColumnName("user_praised_id");
 
             entity.HasOne(d => d.Praizer).WithMany(p => p.PraisePraizers)
