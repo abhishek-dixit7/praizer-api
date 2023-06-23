@@ -74,5 +74,16 @@ namespace praizer_api.Services
 
 
         }
+        public static async Task<List<User>> GetBirthdayCards()
+        {
+            await using var dbContext = new DefaultdbContext();
+            return dbContext.Users.Where(x=>x.DateOfBirth.Equals(DateOnly.FromDateTime(DateTime.Now))).ToList();
+        }
+
+        public static async Task<List<User>> GetAnniversaryCards()
+        {
+            await using var dbContext = new DefaultdbContext();
+            return dbContext.Users.Where(x => x.DateOfJoining.Equals(DateOnly.FromDateTime(DateTime.Now))).ToList();
+        }
     }
 }

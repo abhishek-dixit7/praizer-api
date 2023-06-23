@@ -26,6 +26,37 @@ namespace praizer_api.Controllers
             }
         }
 
+        [HttpGet("GetBirthdays")]
+        public async Task<IActionResult> GetBirthdayCards()
+        {
+            try
+            {
+                var result = await PraisesService.GetBirthdayCards();
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                System.Console.WriteLine(e);
+                return NotFound(e);
+            }
+        }
+
+        [HttpGet("GetAnniversary")]
+        public async Task<IActionResult> GetAnniversaryCards()
+        {
+            try
+            {
+                var result = await PraisesService.GetAnniversaryCards();
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                System.Console.WriteLine(e);
+                return NotFound(e);
+            }
+        }
+
+
         [HttpPost("CreatePraises")]
         public async Task<IActionResult> CreatePraise(CreatePraiseRequest request)
         {
