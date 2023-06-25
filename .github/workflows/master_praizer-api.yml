@@ -32,9 +32,9 @@ jobs:
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
         
-      - name: Copy JSON file to myapp directory
-        run: |
-          mv praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json ${{env.DOTNET_ROOT}}/myapp/
+      #- name: Copy JSON file to myapp directory
+       # run: |
+        #  mv praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json ${{env.DOTNET_ROOT}}/myapp/
           
       - name: List artifact contents
         run: |
