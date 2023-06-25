@@ -24,7 +24,7 @@ jobs:
           
       - name: get file
         env:
-          TOKEN: ${{ secrets.praizer-api-secrets }}
+          TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
         run: |
           curl -H "Authorization: token ${TOKEN}" https://raw.githubusercontent.com/abhishek-dixit7/praizer-api-secrets/main/praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json
           ls
