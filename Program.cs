@@ -48,7 +48,7 @@ builder.Services.AddSwaggerGen(c =>
 
     });
 
-}); 
+});
 
 // Configure Firebase Admin SDK
 var firebaseCredentialPath = builder.Configuration.GetSection("FirebaseConfigFile").Value;
@@ -90,11 +90,11 @@ var app = builder.Build();
 app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed(origin => true));
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
 app.UseHttpsRedirection();
 
