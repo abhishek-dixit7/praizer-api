@@ -22,11 +22,16 @@ jobs:
           dotnet-version: '6.0.x'
           include-prerelease: true
           
-      - name: Download secrets JSON file
-        run: |
-          curl -sLO https://raw.githubusercontent.com/abhishek-dixit7/praizer-api-secrets/main/praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json?token=GHSAT0AAAAAACEKWAXABKT4J6XZKPRBABESZEYJYOQ
+      - name: Install GitHub App
+        uses: actions/checkout@v2
+        with:
+          repository: abhishek-dixit7/praizer-api-secrets
+          path: praizer-api-secrets
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-          cat praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json
+      - name: Copy secrets JSON file
+        run: |
+          cp praizer-api-secrets/praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json .
 
           
       - name: Set up dependency caching for faster builds
