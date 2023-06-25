@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using praizer_api.Contracts.Requests;
 using praizer_api.Database;
 using praizer_api.Database.Models;
 
@@ -23,6 +24,22 @@ namespace praizer_api.Services
             await using var dbContext = new DefaultdbContext();
             var users =   dbContext.Users.Where(x => (x.FirstName + " " + x.LastName).ToLower().Contains(name.ToLower())).ToList();
             return users;
+        }
+
+        public static async Task<User> UpdateUserDetailsByUid(UpdateUserRequest request)
+        {
+            await using var dbContext = new DefaultdbContext();
+            var userDetails = dbContext.Users.FirstOrDefault(x => x.Uid.Equals(request.Uid));
+            if (userDetails == null) { return null; }
+            userDetails.FirstName=request.firstName; 
+            userDetails.LastName=request.lastName;
+            userDetails.Email=request.email;
+            userDetails.PhotoUrl = request?.photoUrl!=null?request.photoUrl:userDetails.PhotoUrl;
+            userDetails.DateOfBirth = request.dateOfBirth;
+            userDetails.DateOfJoining=request.dateOfJoining;
+            dbContext.Users.Update(userDetails);
+            dbContext.SaveChanges();
+            return userDetails;
         }
     }
 }

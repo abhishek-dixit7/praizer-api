@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using praizer_api.Contracts.Requests;
 using praizer_api.Services;
 
 namespace praizer_api.Controllers
@@ -53,6 +53,21 @@ namespace praizer_api.Controllers
                 return Ok(result);
             }
             catch(Exception e)
+            {
+                System.Console.WriteLine(e);
+                return NotFound(e);
+            }
+        }
+
+        [HttpPost("updateUserDetailsByUid")]
+        public async Task<IActionResult> UpdateUserDetailsByUid(UpdateUserRequest request)
+        {
+            try
+            {
+                var result = await UserService.UpdateUserDetailsByUid(request);
+                return Ok(result);
+            }
+            catch (Exception e)
             {
                 System.Console.WriteLine(e);
                 return NotFound(e);
