@@ -27,7 +27,7 @@ jobs:
           TOKEN: ${{ secrets.praizer-api-secrets }}
         run: |
           curl -H "Authorization: token ${TOKEN}" https://raw.githubusercontent.com/abhishek-dixit7/praizer-api-secrets/main/praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json
-          cat praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json
+          ls
           
       - name: Set up dependency caching for faster builds
         uses: actions/cache@v3
