@@ -23,10 +23,8 @@ jobs:
           include-prerelease: true
           
       - name: get file
-        env:
-          TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
         run: |
-          curl -H "Authorization: token ${TOKEN}" https://raw.githubusercontent.com/abhishek-dixit7/praizer-api-secrets/main/praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json
+          curl -H "Authorization: token ${{ secrets.REPO_ACCESS_TOKEN }}" -o praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json https://raw.githubusercontent.com/abhishek-dixit7/praizer-api-secrets/main/praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json
           ls
           
       - name: Set up dependency caching for faster builds
