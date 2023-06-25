@@ -27,12 +27,7 @@ jobs:
           curl -L -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
           -o praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json \
           "https://api.github.com/repos/abhishek-dixit7/praizer-api-secrets/contents/praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json"
-          if [ -f "praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json" ]; then
-            cat praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json
-          else
-            echo "Failed to download the JSON file."
-            exit 1
-          fi
+          cat praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json
           
       - name: Set up dependency caching for faster builds
         uses: actions/cache@v3
