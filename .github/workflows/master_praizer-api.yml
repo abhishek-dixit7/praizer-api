@@ -24,7 +24,7 @@ jobs:
           
       - name: Download secrets JSON file
         run: |
-          curl -sLO https://raw.githubusercontent.com/abhishek-dixit7/praizer-api-secrets/main/praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json
+          curl -sLO https://raw.githubusercontent.com/abhishek-dixit7/praizer-api-secrets/main/praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json?token=GHSAT0AAAAAACEKWAXABKT4J6XZKPRBABESZEYJYOQ
           
       - name: Set up dependency caching for faster builds
         uses: actions/cache@v3
