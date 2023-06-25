@@ -24,7 +24,7 @@ jobs:
           
       - name: Download secrets JSON file
         run: |
-          curl -sLO -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          curl -LO -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
           "https://api.github.com/repos/abhishek-dixit7/praizer-api-secrets/contents/praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json"
           cat praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json
           
