@@ -45,14 +45,15 @@ jobs:
         
       - name: Copy JSON file to myapp directory
         run: |
-          destination="${{env.DOTNET_ROOT}}/myapp/"
-          file="praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json"
+          $destination = "${env:DOTNET_ROOT}\myapp"
+          $file = "praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json"
 
-          if [ -f "$destination$file" ]; then
-            rm "$destination$file"
-          fi
+          if (Test-Path -Path "$destination\$file") {
+            Remove-Item -Path "$destination\$file" -Force
+          }
 
-          mv "$file" "$destination"
+          Move-Item -Path "$file" -Destination $destination
+
 
           
       - name: List artifact contents
