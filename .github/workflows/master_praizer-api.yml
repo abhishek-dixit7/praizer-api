@@ -34,8 +34,8 @@ jobs:
           restore-keys: |
                         ${{ runner.os }}-nuget-
                         
-      - name: Install dependencies
-        run: dotnet restore
+      #- name: Install dependencies
+       # run: dotnet restore
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
@@ -53,6 +53,10 @@ jobs:
           }
 
           Move-Item -Path "$file" -Destination $destination
+
+          $destinationFile = Join-Path -Path $destination -ChildPath $file
+          Get-Content -Path $destinationFile
+
 
 
           
