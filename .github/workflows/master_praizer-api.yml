@@ -43,9 +43,17 @@ jobs:
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
         
-      #- name: Copy JSON file to myapp directory
-       # run: |
-        #  mv praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json ${{env.DOTNET_ROOT}}/myapp/
+      - name: Copy JSON file to myapp directory
+        run: |
+          destination="${{env.DOTNET_ROOT}}/myapp/"
+          file="praizer-e6914-firebase-adminsdk-5c79t-df0dce4ff6.json"
+
+          if [ -f "$destination$file" ]; then
+            rm "$destination$file"
+          fi
+
+          mv "$file" "$destination"
+
           
       - name: List artifact contents
         run: |
