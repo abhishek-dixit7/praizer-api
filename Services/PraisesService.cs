@@ -24,7 +24,7 @@ namespace praizer_api.Services
                 PraizeText = p.PraizeText,
                 RewardPoints = p.RewardPoints,
                 RecognitionType = p.RecognitionType
-            }).ToList();
+            }).OrderByDescending(x=>x.CreateOn).ToList();
 
             return responseList;
 
