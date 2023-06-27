@@ -6,8 +6,8 @@
         public string   firstName { get; set; } 
         public string lastName { get; set; }
         public string email { get; set; }
-        public DateOnly dateOfJoining { get; set; }
-        public DateOnly dateOfBirth { get; set; }
+        public string dateOfJoining { get; set; }
+        public string dateOfBirth { get; set; }
         public string?  photoUrl { get; set; }
         public IFormFile?  profileFile { get; set; }
     }
