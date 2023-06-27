@@ -31,6 +31,8 @@ public partial class User
 
     public string? PhotoUrl { get; set; }
 
+    public string? PasswordHash { get; set; }
+
     public virtual ICollection<User> InverseManager { get; set; } = new List<User>();
 
     public virtual User? Manager { get; set; }

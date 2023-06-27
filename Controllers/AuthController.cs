@@ -2,6 +2,7 @@
 using FirebaseAdmin.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using praizer_api.Contracts.Responses;
 using praizer_api.Objects;
 using praizer_api.Services;
 
@@ -42,7 +43,7 @@ namespace praizer_api.Controllers
                 var token = await _firebaseService.GenerateTokenAsync(userRecord.Uid, userRecord.Email);
 
                 // Return the token to the client
-                return Ok(new { Token = token });
+                return Ok(new LoginResponse{ Token = token,CurrentUserId=uid });
             }
             catch (FirebaseException ex)
             {

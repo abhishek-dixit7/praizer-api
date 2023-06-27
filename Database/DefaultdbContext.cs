@@ -21,11 +21,8 @@ public partial class DefaultdbContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        var _configurations = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-        optionsBuilder.UseNpgsql(_configurations.GetRequiredSection("ConnectionStrings")["DefaultConnection"]);
-    }
+        => optionsBuilder.UseNpgsql("Server=pg-1962589a-blunder.aivencloud.com;Port=10117;Database=defaultdb;User Id=avnadmin;Password=AVNS_JB7Ugi0hcbDnvMXXH-b;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -87,6 +84,9 @@ public partial class DefaultdbContext : DbContext
                 .HasDefaultValueSql("now()")
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("modifed_on");
+            entity.Property(e => e.PasswordHash)
+                .HasMaxLength(255)
+                .HasColumnName("password_hash");
             entity.Property(e => e.PhotoUrl)
                 .HasColumnType("character varying")
                 .HasColumnName("photo_url");
