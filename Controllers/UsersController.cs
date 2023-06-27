@@ -60,7 +60,7 @@ namespace praizer_api.Controllers
         }
 
         [HttpPost("updateUserDetailsByUid")]
-        public async Task<IActionResult> UpdateUserDetailsByUid(UpdateUserRequest request)
+        public async Task<IActionResult> UpdateUserDetailsByUid([FromForm] UpdateUserRequest request)
         {
             try
             {
