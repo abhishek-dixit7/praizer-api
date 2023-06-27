@@ -17,36 +17,43 @@ namespace praizer_api.Services
         public  async Task<LoginResponse> SignUp(SignupRequest request)
         {
             await using var dbContext = new DefaultdbContext();
-            string Uid = CommonService.EncryptPassword(request.Username + request.FirstName + request.LastName);
-            var token = await _firebaseService.GenerateTokenAsync(Uid, request.Username);
-
             var check = dbContext.Users.FirstOrDefault(x => x.Email.Equals(request.Username));
             if (check != null)
             {
                 throw new Exception("User already exists");
             }
+            //Saving the User in DB
+            var uid = CommonService.EncryptPassword(request.Username + request.FirstName + request.LastName);
             var user = new User
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Email = request.Username,
                 PasswordHash = CommonService.EncryptPassword(request.Password),
-                Uid = Uid
+                Uid = uid
             };
             dbContext.Users.Add(user);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
+            
             // Generate a JWT token
+            var token = await _firebaseService.GenerateTokenAsync(uid, user.Email);
             return new LoginResponse { Token=token,CurrentUserId=user.Uid};
         }
 
-        public  async Task<User> LoginWithUsername(LoginRequest request)
+        public  async Task<LoginResponse> LogIn(LoginRequest request)
         {
             await using var dbContext = new DefaultdbContext();
             var user = dbContext.Users
                 .FirstOrDefault(x => request.Username.Equals(x.Email) && CommonService.EncryptPassword(request.Password).Equals(x.PasswordHash));
+
+            if (user == null)
+            {
+                throw new Exception(
+                    "User Not Found! Please try again! Check your password or email! Please Sign Up or Login with Google if you're new here!");
+            }
             
-            var token = await _firebaseService.GenerateTokenAsync(request.Username, CommonService.EncryptPassword( request.Password));
-            return user;
+            var token = await _firebaseService.GenerateTokenAsync(user.Uid,user.Email);
+            return new LoginResponse { Token=token,CurrentUserId=user.Uid};
 
         }
     }

@@ -29,22 +29,22 @@ namespace praizer_api.Controllers
             catch (Exception e)
             {
                 System.Console.WriteLine(e);
-                return NotFound(e);
+                return NotFound(e.Message);
             }
         }
 
-        [HttpGet("LoginWithUsername")]
-        public async Task<IActionResult> LoginWithUsername(LoginRequest request)
+        [HttpPost("LogIn")]
+        public async Task<IActionResult> LogIn(LoginRequest request)
         {
             try
             {
-                var result = await new LoginService(_firebaseService).LoginWithUsername(request);
+                var result = await new LoginService(_firebaseService).LogIn(request);
                 return Ok(result);
             }
             catch (Exception e)
             {
                 System.Console.WriteLine(e);
-                return NotFound(e);
+                return NotFound(e.Message);
             }
         }
     }
