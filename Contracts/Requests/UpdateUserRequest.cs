@@ -9,5 +9,6 @@
         public DateOnly dateOfJoining { get; set; }
         public DateOnly dateOfBirth { get; set; }
         public string?  photoUrl { get; set; }
+        public IFormFile?  profileFile { get; set; }
     }
 }
