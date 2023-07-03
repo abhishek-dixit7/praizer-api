@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Globalization;
+using Microsoft.EntityFrameworkCore;
 using praizer_api.Contracts.Requests;
 using praizer_api.Database;
 using praizer_api.Database.Models;
@@ -46,9 +47,13 @@ namespace praizer_api.Services
             
             userDetails.PhotoUrl = fileUrl ?? userDetails.PhotoUrl;
             
-            
-            userDetails.DateOfBirth = request.dateOfBirth;
-            userDetails.DateOfJoining=request.dateOfJoining;
+            var format = "yyyy-MM-dd";
+            DateOnly.TryParseExact(request.dateOfBirth, format, CultureInfo.InvariantCulture, DateTimeStyles.None,
+                out var dob);
+            userDetails.DateOfBirth = dob;
+            DateOnly.TryParseExact(request.dateOfJoining, format, CultureInfo.InvariantCulture, DateTimeStyles.None,
+                out var doj);
+            userDetails.DateOfJoining=doj;
             
             dbContext.Users.Update(userDetails);
             await dbContext.SaveChangesAsync();
